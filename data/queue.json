@@ -1,0 +1,87 @@
+{
+  "generated_at": "2026-07-02T21:00:00Z",
+  "agent": "ansel",
+  "items": [
+    {
+      "id": "album-001",
+      "type": "album-classification",
+      "status": "pending",
+      "priority": "medium",
+      "album": {
+        "name": "Las Vegas Utah",
+        "slug": "Travel-Travel2024-Las-vegas-utah",
+        "url": "https://www.bradyvisuals.com/Travel/Travel2024/Las-vegas-utah",
+        "photo_count": null,
+        "date_hint": "Travel2024"
+      },
+      "missing": ["year", "month", "people", "event", "trip-link"],
+      "suggested": {
+        "year": 2024,
+        "category": "travel"
+      },
+      "notes": "URL suggests 2024. Check if linked to Utah/Arizona Spring 2026 trip planning."
+    },
+    {
+      "id": "album-002",
+      "type": "album-classification",
+      "status": "pending",
+      "priority": "medium",
+      "album": {
+        "name": "London Paris",
+        "slug": "Travel-Travel2024-London-paris",
+        "url": "https://www.bradyvisuals.com/Travel/Travel2024/London-paris",
+        "photo_count": null,
+        "date_hint": "Travel2024"
+      },
+      "missing": ["year", "month", "people", "event", "trip-link"],
+      "suggested": {
+        "year": 2024,
+        "category": "travel"
+      },
+      "notes": "URL suggests 2024. Check for associated trip page."
+    },
+    {
+      "id": "album-003",
+      "type": "album-classification",
+      "status": "pending",
+      "priority": "low",
+      "album": {
+        "name": "Brady Baron",
+        "slug": "Family-Brady-baron",
+        "url": "https://www.bradyvisuals.com/Family/Brady-baron/",
+        "photo_count": null,
+        "date_hint": null
+      },
+      "missing": ["year", "description", "people", "occasion"],
+      "suggested": {
+        "category": "family"
+      },
+      "notes": "Person name as album title. Needs context: family portraits? Event?"
+    },
+    {
+      "id": "album-004",
+      "type": "duplicate-review",
+      "status": "pending",
+      "priority": "low",
+      "album": {
+        "name": "LBI 2020",
+        "slug": "Travel-Lbi-2020",
+        "url": "https://www.bradyvisuals.com/Travel/Lbi-2020/i-zQNDc39/A",
+        "photo_count": null
+      },
+      "missing": [],
+      "issue": "Multiple image pages from same trip",
+      "related": [
+        "Travel-Lbi-2020-i-wbRcsqq-A",
+        "Travel-Lbi-2020-i-HC95rfK-A"
+      ],
+      "notes": "Consolidate or mark as sub-pages of main LBI 2020 album."
+    }
+  ],
+  "stats": {
+    "total": 4,
+    "pending": 4,
+    "in_progress": 0,
+    "completed": 0
+  }
+}

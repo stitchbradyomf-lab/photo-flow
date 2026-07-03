@@ -1,0 +1,83 @@
+{
+  "generated_at": "2026-07-02T21:00:00Z",
+  "total_albums": 37,
+  "classified": 0,
+  "pending": 37,
+  "albums": [
+    {
+      "slug": "Travel-2023-Disney-nov-2023",
+      "name": "Disney Nov 2023",
+      "url": "https://www.bradyvisuals.com/Travel/2023/Disney-nov-2023/",
+      "year": 2023,
+      "category": "travel",
+      "status": "auto-classified",
+      "enriched": false,
+      "photo_count": null,
+      "people": [],
+      "event": null,
+      "trip_link": null,
+      "print_potential": null,
+      "book_project": null
+    },
+    {
+      "slug": "Travel-2023-Dude-trip-health-retreat-blairstown-nj-sep-2023",
+      "name": "Dude Trip Health Retreat",
+      "url": "https://www.bradyvisuals.com/Travel/2023/Dude-trip-health-retreat-blairstown-nj-sep-2023/",
+      "year": 2023,
+      "category": "travel",
+      "status": "auto-classified",
+      "enriched": false,
+      "photo_count": null,
+      "people": [],
+      "event": "Dude Trip",
+      "trip_link": null,
+      "print_potential": null,
+      "book_project": null
+    },
+    {
+      "slug": "Travel-Travel2024-Las-vegas-utah",
+      "name": "Las Vegas Utah",
+      "url": "https://www.bradyvisuals.com/Travel/Travel2024/Las-vegas-utah",
+      "year": null,
+      "category": "travel",
+      "status": "needs-review",
+      "enriched": false,
+      "photo_count": null,
+      "people": [],
+      "event": null,
+      "trip_link": null,
+      "print_potential": null,
+      "book_project": null
+    },
+    {
+      "slug": "Travel-Travel2024-London-paris",
+      "name": "London Paris",
+      "url": "https://www.bradyvisuals.com/Travel/Travel2024/London-paris",
+      "year": null,
+      "category": "travel",
+      "status": "needs-review",
+      "enriched": false,
+      "photo_count": null,
+      "people": [],
+      "event": null,
+      "trip_link": null,
+      "print_potential": null,
+      "book_project": null
+    },
+    {
+      "slug": "Family-Brady-baron",
+      "name": "Brady Baron",
+      "url": "https://www.bradyvisuals.com/Family/Brady-baron/",
+      "year": null,
+      "category": "family",
+      "status": "needs-review",
+      "enriched": false,
+      "photo_count": null,
+      "people": ["Brady"],
+      "event": null,
+      "trip_link": null,
+      "print_potential": null,
+      "book_project": null
+    }
+  ]
+}

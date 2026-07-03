@@ -1,0 +1,28 @@
+{
+  "generated_at": "2026-07-02T21:00:00Z",
+  "active_projects": [],
+  "completed_projects": [],
+  "templates": [
+    {
+      "id": "annual-family",
+      "name": "Annual Family Book",
+      "description": "Year-in-review photo book",
+      "suggested_albums": [],
+      "layout": "chronological"
+    },
+    {
+      "id": "trip-book",
+      "name": "Trip Photo Book",
+      "description": "Dedicated trip album",
+      "suggested_albums": [],
+      "layout": "day-by-day"
+    },
+    {
+      "id": "event-collection",
+      "name": "Event Collection",
+      "description": "Birthday, graduation, milestone",
+      "suggested_albums": [],
+      "layout": "story-driven"
+    }
+  ]
+}

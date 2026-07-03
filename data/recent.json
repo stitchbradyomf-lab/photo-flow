@@ -1,0 +1,47 @@
+{
+  "generated_at": "2026-07-02T21:00:00Z",
+  "recent_additions": [
+    {
+      "detected_at": "2026-07-02T17:36:00Z",
+      "album": {
+        "name": "LBI June 2026",
+        "slug": "Travel-2026-Lbi-june-2026",
+        "url": "https://www.bradyvisuals.com/Travel/2026/Lbi-june-2026",
+        "photo_count": null
+      },
+      "extracted_title": "lbi for nana's 70th - june 2026",
+      "category_guess": "travel",
+      "year_guess": 2026,
+      "confidence": "high",
+      "notes": "Clear date and occasion in title. Nana's 70th birthday trip."
+    },
+    {
+      "detected_at": "2026-07-02T17:36:00Z",
+      "album": {
+        "name": "Halloween 25 BrAddams Family",
+        "slug": "Seasons-Halloween-25-brAddams-family",
+        "url": "https://www.bradyvisuals.com/Seasons/Halloween-25-brAddams-family",
+        "photo_count": null
+      },
+      "extracted_title": "halloween 25 - brAddams family",
+      "category_guess": "family",
+      "year_guess": 2025,
+      "confidence": "medium",
+      "notes": "Title suggests 2025. 'brAddams' = Brady + Addams Family theme?"
+    },
+    {
+      "detected_at": "2026-07-02T17:36:00Z",
+      "album": {
+        "name": "Colombia",
+        "slug": "Travel-2025-Colombia",
+        "url": "https://www.bradyvisuals.com/Travel/2025/Colombia",
+        "photo_count": null
+      },
+      "extracted_title": "colombia - kelly and carlos",
+      "category_guess": "travel",
+      "year_guess": 2025,
+      "confidence": "high",
+      "notes": "Likely Kelly & Carlos wedding or trip. Needs confirmation."
+    }
+  ]
+}

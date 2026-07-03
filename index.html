@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Flow | kai//hamil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-cream: #faf6f1;
+            --bg-card: #fffdf9;
+            --bg-warm: #f5f0e8;
+            --brown-dark: #3d2817;
+            --brown-medium: #6b5344;
+            --amber: #d4a574;
+            --gold: #c9a227;
+            --border: #e8dfd3;
+            --sand: #e8ddd3;
+            --terracotta: #b87a5e;
+            --ink-dark: #2c2420;
+            --ink-medium: #5a5048;
+            --sea: #1B4D4A;
+            --ochre: #BB6F38;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg-cream);
+            color: var(--brown-dark);
+            min-height: 100vh;
+        }
+        
+        /* Nav */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(250, 246, 241, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: var(--ink-dark);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+        }
+        
+        .logo span { color: var(--ochre); }
+        
+        .nav-links a {
+            color: var(--brown-medium);
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 0.9rem;
+        }
+        
+        .nav-links a:hover { color: var(--ink-dark); }
+        
+        /* Main */
+        .main {
+            padding: 100px 40px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: var(--ink-dark);
+            margin-bottom: 8px;
+        }
+        
+        .header p {
+            color: var(--brown-medium);
+            font-size: 1.1rem;
+        }
+        
+        /* Dashboard Grid */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+        }
+        
+        .panel h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--ink-dark);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        /* Queue Items */
+        .queue-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .queue-item {
+            padding: 15px;
+            background: var(--bg-cream);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .queue-item:hover {
+            border-color: var(--ochre);
+            transform: translateX(4px);
+        }
+        
+        .queue-item.priority-high { border-left: 3px solid var(--terracotta); }
+        .queue-item.priority-medium { border-left: 3px solid var(--gold); }
+        .queue-item.priority-low { border-left: 3px solid var(--sand); }
+        
+        .item-title {
+            font-weight: 500;
+            color: var(--ink-dark);
+            margin-bottom: 4px;
+        }
+        
+        .item-meta {
+            font-size: 0.85rem;
+            color: var(--brown-medium);
+        }
+        
+        .item-tags {
+            display: flex;
+            gap: 6px;
+            margin-top: 8px;
+        }
+        
+        .tag {
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            background: var(--bg-warm);
+            border-radius: 4px;
+            color: var(--brown-medium);
+        }
+        
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 20px;
+            background: var(--bg-cream);
+            border-radius: 8px;
+        }
+        
+        .stat-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 500;
+            color: var(--sea);
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--brown-medium);
+            margin-top: 4px;
+        }
+        
+        /* Recent */
+        .recent-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .recent-item {
+            padding: 12px 15px;
+            background: var(--bg-cream);
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+        
+        .recent-item strong {
+            color: var(--ink-dark);
+        }
+        
+        /* Projects */
+        .project-card {
+            padding: 15px;
+            background: var(--bg-cream);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .project-card h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--ink-dark);
+            margin-bottom: 4px;
+        }
+        
+        .project-card p {
+            font-size: 0.85rem;
+            color: var(--brown-medium);
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: var(--brown-medium);
+            font-style: italic;
+        }
+        
+        /* Footer */
+        .footer {
+            margin-top: 60px;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            color: var(--brown-medium);
+            font-size: 0.9rem;
+        }
+        
+        /* Mobile */
+        @media (max-width: 900px) {
+            .dashboard { grid-template-columns: 1fr; }
+            .nav { padding: 15px 20px; }
+            .main { padding: 90px 20px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="/" class="logo">kai<span>//</span>hamil</a>
+        <div class="nav-links">
+            <a href="#queue">Queue</a>
+            <a href="#albums">Albums</a>
+            <a href="#projects">Projects</a>
+        </div>
+    </nav>
+    
+    <main class="main">
+        <div class="header">
+            <h1>Photo Flow</h1>
+            <p>Curate, classify, and connect your visual library</p>
+        </div>
+        
+        <div class="dashboard">
+            <!-- Left Column -->
+            <div class="left-col">
+                <div class="panel" id="queue">
+                    <h2>📋 Review Queue <span id="queue-count"></span></h2>
+                    <div class="queue-list" id="queue-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+                
+                <div class="panel" id="projects">
+                    <h2>📚 Book Projects</h2>
+                    <div id="projects-list">
+                        <div class="empty-state">No active projects. Start one from the queue.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Column -->
+            <div class="right-col">
+                <div class="panel" id="stats">
+                    <h2>📊 Library Stats</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number" id="stat-total">37</div>
+                            <div class="stat-label">Total Albums</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="stat-classified">0</div>
+                            <div class="stat-label">Classified</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="stat-pending">4</div>
+                            <div class="stat-label">Needs Review</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="panel" id="recent">
+                    <h2>🆕 Recently Added</h2>
+                    <div class="recent-list" id="recent-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="footer">
+            <p>Last updated: <span id="last-updated">--</span> · Next Ansel scan: Fridays 7pm ET</p>
+        </footer>
+    </main>
+    
+    <script>
+        // Load data
+        async function loadData() {
+            try {
+                const [queueRes, recentRes] = await Promise.all([
+                    fetch('data/queue.json'),
+                    fetch('data/recent.json')
+                ]);
+                
+                const queue = await queueRes.json();
+                const recent = await recentRes.json();
+                
+                renderQueue(queue);
+                renderRecent(recent);
+                document.getElementById('last-updated').textContent = new Date(queue.generated_at).toLocaleString();
+            } catch (err) {
+                console.error('Failed to load data:', err);
+            }
+        }
+        
+        function renderQueue(data) {
+            const list = document.getElementById('queue-list');
+            const count = document.getElementById('queue-count');
+            
+            count.textContent = `(${data.stats.pending})`;
+            
+            if (data.items.length === 0) {
+                list.innerHTML = '<div class="empty-state">Queue empty. Check back after next Ansel scan.</div>';
+                return;
+            }
+            
+            list.innerHTML = data.items.map(item => `
+                <div class="queue-item priority-${item.priority}" onclick="openItem('${item.id}')">
+                    <div class="item-title">${item.album.name}</div>
+                    <div class="item-meta">${item.type.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())} · ${item.missing.length} fields missing</div>
+                    <div class="item-tags">
+                        ${item.missing.slice(0, 3).map(m => `<span class="tag">${m}</span>`).join('')}
+                        ${item.missing.length > 3 ? `<span class="tag">+${item.missing.length - 3}</span>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function renderRecent(data) {
+            const list = document.getElementById('recent-list');
+            
+            list.innerHTML = data.recent_additions.map(item => `
+                <div class="recent-item">
+                    <strong>${item.album.name}</strong> · ${item.confidence} confidence<br>
+                    <small>${item.notes}</small>
+                </div>
+            `).join('');
+        }
+        
+        function openItem(id) {
+            // Future: Open detail view for editing
+            console.log('Open item:', id);
+            alert('Edit mode coming soon. For now, edit data/queue.json directly.');
+        }
+        
+        // Initialize
+        loadData();
+    </script>
+</body>
+</html>
