@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Album Detail | Photo Flow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-cream: #faf6f1;
+            --bg-card: #fffdf9;
+            --bg-warm: #f5f0e8;
+            --brown-dark: #3d2817;
+            --brown-medium: #6b5344;
+            --amber: #d4a574;
+            --gold: #c9a227;
+            --border: #e8dfd3;
+            --sand: #e8ddd3;
+            --terracotta: #b87a5e;
+            --ink-dark: #2c2420;
+            --ink-medium: #5a5048;
+            --sea: #1B4D4A;
+            --ochre: #BB6F38;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg-cream);
+            color: var(--brown-dark);
+            min-height: 100vh;
+        }
+        
+        /* Nav */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(250, 246, 241, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: var(--ink-dark);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+        }
+        
+        .logo span { color: var(--ochre); }
+        
+        .nav-links a {
+            color: var(--brown-medium);
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 0.9rem;
+        }
+        
+        .nav-links a:hover { color: var(--ink-dark); }
+        
+        /* Main */
+        .main {
+            padding: 100px 40px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Album Header */
+        .album-header {
+            margin-bottom: 40px;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--brown-medium);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        
+        .back-link:hover { color: var(--ink-dark); }
+        
+        .album-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: var(--ink-dark);
+            margin-bottom: 12px;
+        }
+        
+        .album-meta {
+            display: flex;
+            gap: 20px;
+            color: var(--brown-medium);
+            font-size: 0.95rem;
+        }
+        
+        .album-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        /* Status Badge */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .status-classified {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-needs-review {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-enriched {
+            background: #cce5ff;
+            color: #004085;
+        }
+        
+        /* Grid Layout */
+        .album-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+        
+        /* Panels */
+        .panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .panel h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--ink-dark);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        /* Metadata Fields */
+        .meta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .meta-field {
+            padding: 15px;
+            background: var(--bg-cream);
+            border-radius: 8px;
+        }
+        
+        .meta-field label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--brown-medium);
+            margin-bottom: 6px;
+        }
+        
+        .meta-field .value {
+            font-size: 1rem;
+            color: var(--ink-dark);
+        }
+        
+        .meta-field .value.empty {
+            color: var(--brown-medium);
+            font-style: italic;
+        }
+        
+        /* Connections Panel */
+        .connection-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .connection-item {
+            padding: 15px;
+            background: var(--bg-cream);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s;
+        }
+        
+        .connection-item:hover {
+            border-color: var(--ochre);
+            transform: translateX(4px);
+        }
+        
+        .connection-type {
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--ochre);
+            margin-bottom: 4px;
+        }
+        
+        .connection-title {
+            font-weight: 500;
+            color: var(--ink-dark);
+            margin-bottom: 2px;
+        }
+        
+        .connection-desc {
+            font-size: 0.85rem;
+            color: var(--brown-medium);
+        }
+        
+        /* Add Connection */
+        .add-connection {
+            padding: 12px;
+            border: 2px dashed var(--border);
+            border-radius: 8px;
+            text-align: center;
+            color: var(--brown-medium);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .add-connection:hover {
+            border-color: var(--ochre);
+            color: var(--ochre);
+        }
+        
+        /* Actions */
+        .actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: var(--sea);
+            border: 1px solid var(--sea);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--ink-dark);
+        }
+        
+        .btn-secondary {
+            background: var(--bg-warm);
+            border: 1px solid var(--border);
+            color: var(--brown-medium);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+        
+        /* Notes Section */
+        .notes-content {
+            background: var(--bg-cream);
+            padding: 20px;
+            border-radius: 8px;
+            min-height: 100px;
+            white-space: pre-wrap;
+        }
+        
+        .notes-content.empty {
+            color: var(--brown-medium);
+            font-style: italic;
+        }
+        
+        /* Mobile */
+        @media (max-width: 900px) {
+            .album-grid { grid-template-columns: 1fr; }
+            .meta-grid { grid-template-columns: 1fr; }
+            .nav { padding: 15px 20px; }
+            .main { padding: 90px 20px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="/" class="logo">kai<span>//</span>hamil</a>
+        <div class="nav-links">
+            <a href="/">← Back to Photo Flow</a>
+        </div>
+    </nav>
+    
+    <main class="main">
+        <div class="album-header">
+            <a href="/" class="back-link">← Back to all albums</a>
+            <h1 class="album-title" id="album-name">Loading...</h1>
+            <div class="album-meta">
+                <span id="album-year">📅 --</span>
+                <span id="album-category">📁 --</span>
+                <span id="album-photos">📷 -- photos</span>
+                <span id="album-status" class="status-badge">--</span>
+            </div>
+        </div>
+        
+        <div class="album-grid">
+            <!-- Left Column -->
+            <div class="left-col">
+                <div class="panel">
+                    <h2>📋 Metadata</h2>
+                    <div class="meta-grid">
+                        <div class="meta-field">
+                            <label>Year</label>
+                            <div class="value empty" id="meta-year">Not set</div>
+                        </div>
+                        <div class="meta-field">
+                            <label>Month</label>
+                            <div class="value empty" id="meta-month">Not set</div>
+                        </div>
+                        <div class="meta-field">
+                            <label>People</label>
+                            <div class="value empty" id="meta-people">Not set</div>
+                        </div>
+                        <div class="meta-field">
+                            <label>Event / Occasion</label>
+                            <div class="value empty" id="meta-event">Not set</div>
+                        </div>
+                        <div class="meta-field">
+                            <label>Print Potential</label>
+                            <div class="value empty" id="meta-print">Not rated</div>
+                        </div>
+                        <div class="meta-field">
+                            <label>Book Project</label>
+                            <div class="value empty" id="meta-book">Not assigned</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="panel">
+                    <h2>📝 Notes</h2>
+                    <div class="notes-content empty" id="album-notes">
+                        No notes added yet.
+                    </div>
+                </div>
+                
+                <div class="actions">
+                    <a href="#" class="btn btn-primary" id="edit-btn">✏️ Edit Album</a>
+                    <a href="#" class="btn btn-secondary" id="view-smugmug" target="_blank">🔗 View on SmugMug</a>
+                </div>
+            </div>
+            
+            <!-- Right Column -->
+            <div class="right-col">
+                <div class="panel">
+                    <h2>🔗 Connections</h2>
+                    <div class="connection-list" id="connections-list">
+                        <!-- Populated by JS -->
+                    </div>
+                    <div class="add-connection" onclick="addConnection()">
+                        + Add Connection
+                    </div>
+                </div>
+                
+                <div class="panel">
+                    <h2>📊 Related Albums</h2>
+                    <div class="connection-list" id="related-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        // Get album slug from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const albumSlug = urlParams.get('slug');
+        
+        let albumData = null;
+        let allAlbums = [];
+        let connections = [];
+        
+        async function loadAlbum() {
+            if (!albumSlug) {
+                document.getElementById('album-name').textContent = 'Album not found';
+                return;
+            }
+            
+            try {
+                // Load albums data
+                const res = await fetch('data/albums.json');
+                const data = await res.json();
+                allAlbums = data.albums;
+                
+                // Find this album
+                albumData = allAlbums.find(a => a.slug === albumSlug);
+                
+                if (!albumData) {
+                    document.getElementById('album-name').textContent = 'Album not found';
+                    return;
+                }
+                
+                // Load connections
+                await loadConnections();
+                
+                // Render
+                renderAlbum();
+                renderConnections();
+                renderRelated();
+                
+            } catch (err) {
+                console.error('Failed to load album:', err);
+                document.getElementById('album-name').textContent = 'Error loading album';
+            }
+        }
+        
+        async function loadConnections() {
+            try {
+                const res = await fetch('data/connections.json');
+                const data = await res.json();
+                connections = data.connections.filter(c => 
+                    c.from === albumSlug || c.to === albumSlug
+                );
+            } catch (err) {
+                // No connections file yet
+                connections = [];
+            }
+        }
+        
+        function renderAlbum() {
+            document.getElementById('album-name').textContent = albumData.name;
+            document.getElementById('album-year').textContent = `📅 ${albumData.year || 'Unknown year'}`;
+            document.getElementById('album-category').textContent = `📁 ${albumData.category || 'Uncategorized'}`;
+            document.getElementById('album-photos').textContent = `📷 ${albumData.photo_count || '?'} photos`;
+            
+            const statusEl = document.getElementById('album-status');
+            statusEl.textContent = albumData.status || 'unknown';
+            statusEl.className = `status-badge status-${albumData.status || 'needs-review'}`;
+            
+            // Metadata
+            setMetaValue('meta-year', albumData.year);
+            setMetaValue('meta-month', albumData.month);
+            setMetaValue('meta-people', albumData.people?.join(', '));
+            setMetaValue('meta-event', albumData.event);
+            setMetaValue('meta-print', albumData.print_potential);
+            setMetaValue('meta-book', albumData.book_project);
+            
+            // Notes
+            const notesEl = document.getElementById('album-notes');
+            if (albumData.notes) {
+                notesEl.textContent = albumData.notes;
+                notesEl.classList.remove('empty');
+            }
+            
+            // Links
+            document.getElementById('view-smugmug').href = albumData.url;
+            document.getElementById('edit-btn').href = `/?edit=${albumSlug}`;
+        }
+        
+        function setMetaValue(id, value) {
+            const el = document.getElementById(id);
+            if (value) {
+                el.textContent = Array.isArray(value) ? value.join(', ') : value;
+                el.classList.remove('empty');
+            }
+        }
+        
+        function renderConnections() {
+            const list = document.getElementById('connections-list');
+            
+            if (connections.length === 0) {
+                list.innerHTML = '<div style="color: var(--brown-medium); font-style: italic;">No connections yet.</div>';
+                return;
+            }
+            
+            list.innerHTML = connections.map(conn => {
+                const isFrom = conn.from === albumSlug;
+                const otherSlug = isFrom ? conn.to : conn.from;
+                const otherAlbum = allAlbums.find(a => a.slug === otherSlug);
+                
+                return `
+                    <a href="?slug=${otherSlug}" class="connection-item">
+                        <div class="connection-type">${conn.type}</div>
+                        <div class="connection-title">${otherAlbum?.name || otherSlug}</div>
+                        <div class="connection-desc">${conn.description || ''}</div>
+                    </a>
+                `;
+            }).join('');
+        }
+        
+        function renderRelated() {
+            const list = document.getElementById('related-list');
+            
+            // Find related albums (same year, category, or people)
+            const related = allAlbums.filter(a => {
+                if (a.slug === albumSlug) return false;
+                
+                return (a.year && a.year === albumData.year) ||
+                       (a.category && a.category === albumData.category) ||
+                       (a.event && a.event === albumData.event);
+            }).slice(0, 5);
+            
+            if (related.length === 0) {
+                list.innerHTML = '<div style="color: var(--brown-medium); font-style: italic;">No related albums found.</div>';
+                return;
+            }
+            
+            list.innerHTML = related.map(album => `
+                <a href="?slug=${album.slug}" class="connection-item">
+                    <div class="connection-type">${album.year || 'Unknown year'}</div>
+                    <div class="connection-title">${album.name}</div>
+                    <div class="connection-desc">${album.category || 'Uncategorized'}</div>
+                </a>
+            `).join('');
+        }
+        
+        function addConnection() {
+            const type = prompt('Connection type (trip, event, person, etc.):');
+            if (!type) return;
+            
+            const target = prompt('Target album slug or URL:');
+            if (!target) return;
+            
+            alert('Connection feature coming soon. For now, edit data/connections.json directly.');
+        }
+        
+        // Initialize
+        loadAlbum();
+    </script>
+</body>
+</html>

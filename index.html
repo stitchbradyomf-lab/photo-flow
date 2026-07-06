@@ -455,8 +455,33 @@
         </div>
         
         <footer class="footer">
-            <p>Last updated: <span id="last-updated">--</span> · Next Ansel scan: Fridays 7pm ET</p>
+            <p>Last updated: <span id="last-updated">--</span> · Next Ansel scan: Fridays 7pm ET · <a href="#" onclick="openSettings()" style="color: var(--brown-medium);">Settings</a></p>
         </footer>
+    
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="settings-modal">
+        <div class="modal" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3>Settings</h3>
+                <button class="modal-close" onclick="closeSettings()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>GitHub Personal Access Token</label>
+                    <input type="password" id="github-token" placeholder="ghp_xxxxxxxxxxxx">
+                    <small style="color: var(--brown-medium); font-size: 0.8rem;">Required for auto-commit. <a href="https://github.com/settings/tokens" target="_blank" style="color: var(--ochre);">Create token</a> with 'repo' scope.</small>
+                </div>
+                <div class="form-group">
+                    <label>Token Status</label>
+                    <div id="token-status" style="padding: 10px; background: var(--bg-cream); border-radius: 6px; font-size: 0.9rem;">Not configured</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeSettings()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveSettings()">Save Token</button>
+            </div>
+        </div>
+    </div>
     </main>
     
     <!-- Edit Modal -->
@@ -574,9 +599,9 @@
             }
             
             list.innerHTML = data.items.map(item => `
-                <div class="queue-item priority-${item.priority}" onclick="openItem('${item.id}')">
-                    <div class="item-title">${item.album.name}</div>
-                    <div class="item-meta">${item.type.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())} · ${item.missing.length} fields missing</div>
+                <div class="queue-item priority-${item.priority}">
+                    <div class="item-title" style="cursor: pointer;" onclick="openItem('${item.id}')">${item.album.name}</div>
+                    <div class="item-meta">${item.type.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())} · ${item.missing.length} fields missing · <a href="album.html?slug=${item.album.slug}" style="color: var(--ochre);" onclick="event.stopPropagation();">View →</a></div>
                     <div class="item-tags">
                         ${item.missing.slice(0, 3).map(m => `<span class="tag">${m}</span>`).join('')}
                         ${item.missing.length > 3 ? `<span class="tag">+${item.missing.length - 3}</span>` : ''}
@@ -625,7 +650,62 @@
             currentEditId = null;
         }
         
-        function saveEdit() {
+        // GitHub API Configuration
+        const GITHUB_TOKEN = localStorage.getItem('github_token') || '';
+        const GITHUB_REPO = 'stitchbradyomf-lab/photo-flow';
+        const GITHUB_BRANCH = 'main';
+        
+        async function commitToGitHub(filePath, content, message) {
+            if (!GITHUB_TOKEN) {
+                throw new Error('GitHub token not configured. Please set your token in settings.');
+            }
+            
+            const apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/${filePath}`;
+            
+            // Get current file SHA (if exists)
+            let sha = null;
+            try {
+                const getRes = await fetch(apiUrl, {
+                    headers: {
+                        'Authorization': `token ${GITHUB_TOKEN}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+                if (getRes.ok) {
+                    const data = await getRes.json();
+                    sha = data.sha;
+                }
+            } catch (e) {
+                // File doesn't exist yet
+            }
+            
+            // Commit file
+            const body = {
+                message: message,
+                content: btoa(unescape(encodeURIComponent(content))),
+                branch: GITHUB_BRANCH
+            };
+            if (sha) body.sha = sha;
+            
+            const res = await fetch(apiUrl, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `token ${GITHUB_TOKEN}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            });
+            
+            if (!res.ok) {
+                const error = await res.json();
+                throw new Error(error.message || 'Failed to commit to GitHub');
+            }
+            
+            return await res.json();
+        }
+        
+        async function saveEdit() {
             if (!currentEditId) return;
             
             const formData = {
@@ -637,29 +717,95 @@
                 trip: document.getElementById('edit-trip').value,
                 print: document.getElementById('edit-print').value,
                 priority: document.getElementById('edit-priority').value,
-                notes: document.getElementById('edit-notes').value
+                notes: document.getElementById('edit-notes').value,
+                updated_at: new Date().toISOString()
             };
             
-            // For now, log to console (future: save to JSON)
-            console.log('Saving:', formData);
+            const saveBtn = document.querySelector('.btn-primary');
+            const originalText = saveBtn.textContent;
+            saveBtn.textContent = 'Saving...';
+            saveBtn.disabled = true;
             
-            // Create downloadable JSON
-            const dataStr = JSON.stringify(formData, null, 2);
-            const blob = new Blob([dataStr], {type: 'application/json'});
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `edit-${currentEditId}.json`;
-            a.click();
-            URL.revokeObjectURL(url);
-            
-            alert('Changes saved! Download the JSON file and commit it to update the data.');
-            closeModal();
+            try {
+                // Save to edits folder in repo
+                const filePath = `data/edits/${currentEditId}.json`;
+                const content = JSON.stringify(formData, null, 2);
+                const message = `Update album classification: ${document.getElementById('edit-name').value}`;
+                
+                await commitToGitHub(filePath, content, message);
+                
+                alert('Changes saved and committed to GitHub!');
+                closeModal();
+                
+                // Refresh data
+                await loadData();
+            } catch (error) {
+                console.error('Save failed:', error);
+                
+                // Fallback to download
+                const dataStr = JSON.stringify(formData, null, 2);
+                const blob = new Blob([dataStr], {type: 'application/json'});
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `edit-${currentEditId}.json`;
+                a.click();
+                URL.revokeObjectURL(url);
+                
+                alert(`Auto-commit failed: ${error.message}\n\nDownloaded JSON file instead. Please commit manually.`);
+            } finally {
+                saveBtn.textContent = originalText;
+                saveBtn.disabled = false;
+            }
         }
         
         // Close modal on overlay click
         document.getElementById('edit-modal').addEventListener('click', function(e) {
             if (e.target === this) closeModal();
+        });
+        
+        // Settings Functions
+        function openSettings() {
+            const token = localStorage.getItem('github_token') || '';
+            document.getElementById('github-token').value = token;
+            updateTokenStatus();
+            document.getElementById('settings-modal').classList.add('active');
+        }
+        
+        function closeSettings() {
+            document.getElementById('settings-modal').classList.remove('active');
+        }
+        
+        function updateTokenStatus() {
+            const token = localStorage.getItem('github_token');
+            const statusEl = document.getElementById('token-status');
+            if (token) {
+                statusEl.textContent = `✓ Configured (${token.substring(0, 8)}...)`;
+                statusEl.style.color = 'var(--sea)';
+            } else {
+                statusEl.textContent = 'Not configured';
+                statusEl.style.color = 'var(--brown-medium)';
+            }
+        }
+        
+        function saveSettings() {
+            const token = document.getElementById('github-token').value.trim();
+            if (token) {
+                localStorage.setItem('github_token', token);
+                updateTokenStatus();
+                alert('GitHub token saved!');
+                closeSettings();
+            } else {
+                localStorage.removeItem('github_token');
+                updateTokenStatus();
+                alert('Token cleared.');
+                closeSettings();
+            }
+        }
+        
+        // Close settings modal on overlay click
+        document.getElementById('settings-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeSettings();
         });
         
         // Initialize

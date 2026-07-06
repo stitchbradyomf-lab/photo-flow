@@ -1,0 +1,23 @@
+{
+  "generated_at": "2026-07-06T18:00:00Z",
+  "connections": [
+    {
+      "from": "Travel-Travel2024-Las-vegas-utah",
+      "to": "trips/utah-arizona-spring-2026",
+      "type": "trip-planning",
+      "description": "Photos from the Utah trip planning"
+    },
+    {
+      "from": "Travel-2023-Disney-nov-2023",
+      "to": "Travel-2025-Disney-dec-2025",
+      "type": "series",
+      "description": "Disney trips series"
+    },
+    {
+      "from": "Events-Life-Philly-weekend",
+      "to": "blog/philly-weekend-recap",
+      "type": "blog-post",
+      "description": "Featured in weekend recap post"
+    }
+  ]
+}
