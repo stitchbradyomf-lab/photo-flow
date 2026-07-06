@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print Proposals | Photo Flow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-cream: #faf6f1;
+            --bg-card: #fffdf9;
+            --bg-warm: #f5f0e8;
+            --brown-dark: #3d2817;
+            --brown-medium: #6b5344;
+            --amber: #d4a574;
+            --gold: #c9a227;
+            --border: #e8dfd3;
+            --sand: #e8ddd3;
+            --terracotta: #b87a5e;
+            --ink-dark: #2c2420;
+            --ink-medium: #5a5048;
+            --sea: #1B4D4A;
+            --ochre: #BB6F38;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg-cream);
+            color: var(--brown-dark);
+            min-height: 100vh;
+        }
+        
+        /* Nav */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(250, 246, 241, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: var(--ink-dark);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+        }
+        
+        .logo span { color: var(--ochre); }
+        
+        .nav-links a {
+            color: var(--brown-medium);
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 0.9rem;
+        }
+        
+        .nav-links a:hover { color: var(--ink-dark); }
+        
+        /* Main */
+        .main {
+            padding: 100px 40px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 400;
+            color: var(--ink-dark);
+            margin-bottom: 8px;
+        }
+        
+        .header p {
+            color: var(--brown-medium);
+            font-size: 1rem;
+        }
+        
+        /* Proposal Card */
+        .proposal-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        
+        .proposal-header {
+            padding: 25px;
+            background: linear-gradient(135deg, var(--bg-warm), var(--bg-cream));
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .proposal-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+        }
+        
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-approved {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-ordered {
+            background: #cce5ff;
+            color: #004085;
+        }
+        
+        .status-delivered {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .original-request {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--ink-dark);
+            margin-bottom: 8px;
+        }
+        
+        .parsed-details {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .parsed-tag {
+            font-size: 0.85rem;
+            padding: 4px 10px;
+            background: var(--bg-card);
+            border-radius: 4px;
+            color: var(--brown-medium);
+        }
+        
+        /* Proposal Body */
+        .proposal-body {
+            padding: 25px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .section h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--ink-dark);
+            margin-bottom: 15px;
+        }
+        
+        /* Photo Preview */
+        .photo-preview {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+        
+        .photo-thumb {
+            width: 200px;
+            height: 150px;
+            background: var(--bg-warm);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--brown-medium);
+            font-size: 0.9rem;
+        }
+        
+        .photo-info {
+            flex: 1;
+        }
+        
+        .photo-info h4 {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--ink-dark);
+            margin-bottom: 6px;
+        }
+        
+        .photo-info p {
+            font-size: 0.9rem;
+            color: var(--brown-medium);
+            margin-bottom: 4px;
+        }
+        
+        /* Vendor Options */
+        .vendor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        
+        .vendor-card {
+            padding: 20px;
+            background: var(--bg-cream);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .vendor-card:hover {
+            border-color: var(--ochre);
+        }
+        
+        .vendor-card.recommended {
+            border-color: var(--sea);
+            background: linear-gradient(135deg, var(--bg-cream), #e8f4f3);
+        }
+        
+        .vendor-card.recommended::before {
+            content: "★ Recommended";
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--sea);
+            margin-bottom: 8px;
+        }
+        
+        .vendor-name {
+            font-weight: 500;
+            color: var(--ink-dark);
+            margin-bottom: 4px;
+        }
+        
+        .vendor-product {
+            font-size: 0.9rem;
+            color: var(--brown-medium);
+            margin-bottom: 12px;
+        }
+        
+        .vendor-price {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: var(--ink-dark);
+        }
+        
+        .vendor-meta {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: var(--brown-medium);
+        }
+        
+        /* Actions */
+        .proposal-actions {
+            padding: 25px;
+            background: var(--bg-warm);
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+        }
+        
+        .btn {
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+        }
+        
+        .btn-secondary {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--brown-medium);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+        
+        .btn-primary {
+            background: var(--sea);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--ink-dark);
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #1e7e34;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px;
+            color: var(--brown-medium);
+        }
+        
+        .empty-state h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        /* Mobile */
+        @media (max-width: 768px) {
+            .photo-preview { flex-direction: column; }
+            .photo-thumb { width: 100%; }
+            .vendor-grid { grid-template-columns: 1fr; }
+            .proposal-actions { flex-direction: column; }
+            .btn { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="/" class="logo">kai<span>//</span>hamil</a>
+        <div class="nav-links">
+            <a href="/">← Back to Photo Flow</a>
+        </div>
+    </nav>
+    
+    <main class="main">
+        <div class="header">
+            <h1>Print Proposals</h1>
+            <p>Review and approve print orders</p>
+        </div>
+        
+        <div id="proposals-container">
+            <!-- Populated by JS -->
+        </div>
+    </main>
+    
+    <script>
+        async function loadProposals() {
+            try {
+                const res = await fetch('data/print-proposals.json');
+                const data = await res.json();
+                renderProposals(data.proposals);
+            } catch (err) {
+                console.error('Failed to load proposals:', err);
+                document.getElementById('proposals-container').innerHTML = `
+                    <div class="empty-state">
+                        <h2>No proposals yet</h2>
+                        <p>Ask Stitch for a print via Telegram to get started.</p>
+                    </div>
+                `;
+            }
+        }
+        
+        function renderProposals(proposals) {
+            const container = document.getElementById('proposals-container');
+            
+            if (proposals.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h2>No proposals yet</h2>
+                        <p>Ask Stitch for a print via Telegram to get started.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = proposals.map(p => renderProposal(p)).join('');
+        }
+        
+        function renderProposal(p) {
+            const parsed = p.request.parsed;
+            const photo = p.selected_photo;
+            
+            return `
+                <div class="proposal-card" data-id="${p.id}">
+                    <div class="proposal-header">
+                        <span class="proposal-status status-${p.status}">${p.status}</span>
+                        <div class="original-request">"${p.request.original_text}"</div>
+                        <div class="parsed-details">
+                            <span class="parsed-tag">📷 ${parsed.style || 'color'}</span>
+                            <span class="parsed-tag">📐 ${parsed.size}</span>
+                            <span class="parsed-tag">🖼️ ${parsed.format}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="proposal-body">
+                        <div class="section">
+                            <h3>Selected Photo</h3>
+                            <div class="photo-preview">
+                                <div class="photo-thumb">
+                                    ${photo.thumbnail ? `<img src="${photo.thumbnail}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">` : 'No preview'}
+                                </div>
+                                <div class="photo-info">
+                                    <h4>${photo.album}</h4>
+                                    <p>Photo ID: ${photo.photo_id}</p>
+                                    <p><a href="${photo.url}" target="_blank" style="color: var(--ochre);">View on SmugMug →</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="section">
+                            <h3>Vendor Options</h3>
+                            <div class="vendor-grid">
+                                ${p.vendor_options.map((v, i) => `
+                                    <div class="vendor-card ${v.vendor === p.recommended.vendor ? 'recommended' : ''}" onclick="selectVendor('${p.id}', '${v.vendor}')">
+                                        <div class="vendor-name">${v.vendor}</div>
+                                        <div class="vendor-product">${v.product}</div>
+                                        <div class="vendor-price">$${v.total.toFixed(2)}</div>
+                                        <div class="vendor-meta">
+                                            <span>⭐ ${v.rating}</span>
+                                            <span>🚚 ${v.turnaround}</span>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            ${p.recommended ? `<p style="margin-top: 15px; color: var(--brown-medium);">💡 <strong>Recommendation:</strong> ${p.recommended.reason}</p>` : ''}
+                        </div>
+                        
+                        ${p.notes ? `
+                        <div class="section">
+                            <h3>Notes</h3>
+                            <p style="color: var(--brown-medium);">${p.notes}</p>
+                        </div>
+                        ` : ''}
+                    </div>
+                    
+                    <div class="proposal-actions">
+                        <button class="btn btn-secondary" onclick="declineProposal('${p.id}')">✕ Decline</button>
+                        <button class="btn btn-secondary" onclick="modifyProposal('${p.id}')">✏️ Modify</button>
+                        <button class="btn btn-success" onclick="approveProposal('${p.id}')">✓ Approve & Order</button>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function selectVendor(proposalId, vendor) {
+            console.log('Selected vendor:', vendor, 'for proposal:', proposalId);
+            // Highlight selected vendor
+            document.querySelectorAll(`[data-id="${proposalId}"] .vendor-card`).forEach(card => {
+                card.style.opacity = '0.6';
+            });
+            event.currentTarget.style.opacity = '1';
+            event.currentTarget.style.borderColor = 'var(--sea)';
+        }
+        
+        function approveProposal(id) {
+            if (confirm('Approve this print order?\n\nThis will commit to GitHub and (when configured) place the order automatically.')) {
+                alert('Proposal approved! Order will be placed.');
+                // Future: Auto-commit to GitHub, trigger order
+            }
+        }
+        
+        function declineProposal(id) {
+            if (confirm('Decline this proposal?')) {
+                alert('Proposal declined.');
+                // Future: Update status, notify Ansel
+            }
+        }
+        
+        function modifyProposal(id) {
+            const note = prompt('What would you like to change?');
+            if (note) {
+                alert('Modification request sent to Ansel.');
+                // Future: Create modification task
+            }
+        }
+        
+        // Initialize
+        loadProposals();
+    </script>
+</body>
+</html>

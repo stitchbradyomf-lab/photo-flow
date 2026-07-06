@@ -1,0 +1,119 @@
+{
+  "generated_at": "2026-07-06T18:28:55.437069",
+  "proposals": [
+    {
+      "id": "print-001",
+      "status": "pending",
+      "requested_at": "2026-07-06T18:00:00Z",
+      "request": {
+        "original_text": "I need a black and white photo of Death Valley printed as a 20x30 metal print",
+        "parsed": {
+          "subject": "Death Valley",
+          "style": "black and white",
+          "size": "20x30",
+          "format": "metal print"
+        }
+      },
+      "selected_photo": {
+        "album": "Death Valley 2026",
+        "photo_id": "IMG_4523",
+        "url": "https://www.bradyvisuals.com/Travel/2026/Death-valley/i-AbCdEfG",
+        "thumbnail": "https://photos.smugmug.com/photos/i-AbCdEfG/0/Th/i-AbCdEfG-Th.jpg"
+      },
+      "vendor_options": [
+        {
+          "vendor": "Bay Photo",
+          "product": "Metal Print - Gloss",
+          "size": "20x30",
+          "price": 189.99,
+          "shipping": 15.0,
+          "total": 204.99,
+          "turnaround": "5-7 days",
+          "rating": 4.8
+        },
+        {
+          "vendor": "MPix",
+          "product": "Metal Print",
+          "size": "20x30",
+          "price": 175.0,
+          "shipping": 12.5,
+          "total": 187.5,
+          "turnaround": "7-10 days",
+          "rating": 4.6
+        },
+        {
+          "vendor": "Nations Photo Lab",
+          "product": "HD Metal Print",
+          "size": "20x30",
+          "price": 199.0,
+          "shipping": 18.0,
+          "total": 217.0,
+          "turnaround": "3-5 days",
+          "rating": 4.7
+        }
+      ],
+      "recommended": {
+        "vendor": "MPix",
+        "reason": "Best price with good quality rating"
+      },
+      "notes": "Black and white conversion will be handled by vendor"
+    },
+    {
+      "id": "print-002",
+      "status": "pending",
+      "requested_at": "2026-07-06T18:28:55.437061",
+      "request": {
+        "original_text": "I need a black and white photo of Death Valley printed as a 20x30 metal print",
+        "parsed": {
+          "subject": "death valley printed as a 20x30 metal print",
+          "style": "black and white",
+          "size": "20x30",
+          "format": "metal"
+        }
+      },
+      "selected_photo": {
+        "album": "TBD - Ansel to select",
+        "photo_id": "TBD",
+        "url": "#",
+        "thumbnail": null
+      },
+      "vendor_options": [
+        {
+          "vendor": "MPix",
+          "product": "Metal Print",
+          "size": "20x30",
+          "price": 175.0,
+          "shipping": 12.5,
+          "total": 187.5,
+          "turnaround": "7-10 days",
+          "rating": 4.6
+        },
+        {
+          "vendor": "Bay Photo",
+          "product": "Metal Print - Gloss",
+          "size": "20x30",
+          "price": 189.99,
+          "shipping": 15.0,
+          "total": 204.99,
+          "turnaround": "5-7 days",
+          "rating": 4.8
+        },
+        {
+          "vendor": "Nations Photo Lab",
+          "product": "HD Metal Print",
+          "size": "20x30",
+          "price": 199.0,
+          "shipping": 18.0,
+          "total": 217.0,
+          "turnaround": "3-5 days",
+          "rating": 4.7
+        }
+      ],
+      "recommended": {
+        "vendor": "MPix",
+        "reason": "Best price with good quality rating"
+      },
+      "notes": "Black And White conversion will be handled by vendor"
+    }
+  ]
+}
