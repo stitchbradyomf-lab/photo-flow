@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-06T18:28:55.437069",
+  "generated_at": "2026-07-06T18:38:34.733075",
   "proposals": [
     {
       "id": "print-001",
@@ -114,6 +114,90 @@
         "reason": "Best price with good quality rating"
       },
       "notes": "Black And White conversion will be handled by vendor"
+    },
+    {
+      "id": "print-003",
+      "status": "pending",
+      "requested_at": "2026-07-06T18:38:34.733070",
+      "request": {
+        "original_text": "Find me a nice 20x30 wall print from Long Beach island",
+        "parsed": {
+          "subject": "long beach island",
+          "style": "color",
+          "size": "20x30",
+          "format": "photo"
+        }
+      },
+      "selected_photo": {
+        "album": "Best of Long Beach Island",
+        "album_slug": "Best-of-Best-of-long-beach-island",
+        "photo_id": "to-be-selected",
+        "url": "https://www.bradyvisuals.com/Best-of/Best-of-long-beach-island",
+        "thumbnail": null,
+        "criteria": "Landscape/scene (non-portrait)"
+      },
+      "vendor_options": [
+        {
+          "vendor": "Shutterfly",
+          "product": "Photo Wall Art",
+          "size": "20x30",
+          "price": 14.695099999999998,
+          "shipping": 14.99,
+          "total": 29.6851,
+          "turnaround": "5-8 days",
+          "rating": 4.3,
+          "specialty": "51% off - your best price advantage"
+        },
+        {
+          "vendor": "MPix",
+          "product": "Photo Print",
+          "size": "20x30",
+          "price": 27.590799999999998,
+          "shipping": 12.5,
+          "total": 40.0908,
+          "turnaround": "7-10 days",
+          "rating": 4.6,
+          "specialty": "Consumer-friendly, good quality"
+        },
+        {
+          "vendor": "AdoramaPix",
+          "product": "Pro Photo",
+          "size": "20x30",
+          "price": 31.4895,
+          "shipping": 15.0,
+          "total": 46.4895,
+          "turnaround": "4-6 days",
+          "rating": 4.7,
+          "specialty": "Professional quality, color accuracy"
+        },
+        {
+          "vendor": "Royal Canvas",
+          "product": "Gallery Photo",
+          "size": "20x30",
+          "price": 28.490499999999997,
+          "shipping": 18.0,
+          "total": 46.4905,
+          "turnaround": "6-9 days",
+          "rating": 4.5,
+          "specialty": "Canvas and metal specialists"
+        },
+        {
+          "vendor": "Bay Photo",
+          "product": "Photo Print - Gloss",
+          "size": "20x30",
+          "price": 32.989000000000004,
+          "shipping": 15.0,
+          "total": 47.989000000000004,
+          "turnaround": "5-7 days",
+          "rating": 4.8,
+          "specialty": "Highest quality, pro labs"
+        }
+      ],
+      "recommended": {
+        "vendor": "Shutterfly",
+        "reason": "Best price with your 51% discount ($29.69 total)"
+      },
+      "notes": "Color conversion will be handled by vendor"
     }
   ]
 }
