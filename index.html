@@ -252,11 +252,142 @@
             font-size: 0.9rem;
         }
         
+        /* Edit Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+        }
+        .modal-overlay.active { display: flex; }
+        
+        .modal {
+            background: var(--bg-card);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+        
+        .modal-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: var(--ink-dark);
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--brown-medium);
+            cursor: pointer;
+        }
+        
+        .modal-body {
+            padding: 25px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--brown-medium);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            background: var(--bg-cream);
+            color: var(--ink-dark);
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--ochre);
+        }
+        
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .modal-footer {
+            padding: 20px 25px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-secondary {
+            background: var(--bg-warm);
+            border: 1px solid var(--border);
+            color: var(--brown-medium);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+        
+        .btn-primary {
+            background: var(--sea);
+            border: 1px solid var(--sea);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--ink-dark);
+        }
+        
         /* Mobile */
         @media (max-width: 900px) {
             .dashboard { grid-template-columns: 1fr; }
             .nav { padding: 15px 20px; }
             .main { padding: 90px 20px 20px; }
+            .form-row { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -328,6 +459,88 @@
         </footer>
     </main>
     
+    <!-- Edit Modal -->
+    <div class="modal-overlay" id="edit-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Edit Album</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-form">
+                    <input type="hidden" id="edit-id">
+                    <div class="form-group">
+                        <label>Album Name</label>
+                        <input type="text" id="edit-name" readonly>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Year</label>
+                            <input type="number" id="edit-year" placeholder="2024">
+                        </div>
+                        <div class="form-group">
+                            <label>Month</label>
+                            <select id="edit-month">
+                                <option value="">Unknown</option>
+                                <option value="1">January</option>
+                                <option value="2">February</option>
+                                <option value="3">March</option>
+                                <option value="4">April</option>
+                                <option value="5">May</option>
+                                <option value="6">June</option>
+                                <option value="7">July</option>
+                                <option value="8">August</option>
+                                <option value="9">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>People (comma-separated)</label>
+                        <input type="text" id="edit-people" placeholder="Hudson, Rowan, Dylan, Marissa">
+                    </div>
+                    <div class="form-group">
+                        <label>Event / Occasion</label>
+                        <input type="text" id="edit-event" placeholder="Birthday, Vacation, etc.">
+                    </div>
+                    <div class="form-group">
+                        <label>Link to Trip</label>
+                        <input type="text" id="edit-trip" placeholder="Trip name or URL">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Print Potential</label>
+                            <select id="edit-print">
+                                <option value="">Not rated</option>
+                                <option value="high">High</option>
+                                <option value="medium">Medium</option>
+                                <option value="low">Low</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Priority</label>
+                            <select id="edit-priority">
+                                <option value="low">Low</option>
+                                <option value="medium">Medium</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Notes</label>
+                        <textarea id="edit-notes" placeholder="Additional context..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveEdit()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+    
     <script>
         // Load data
         async function loadData() {
@@ -349,6 +562,7 @@
         }
         
         function renderQueue(data) {
+            queueData = data; // Store for edit modal
             const list = document.getElementById('queue-list');
             const count = document.getElementById('queue-count');
             
@@ -382,11 +596,71 @@
             `).join('');
         }
         
+        // Edit Modal Functions
+        let currentEditId = null;
+        let queueData = null;
+        
         function openItem(id) {
-            // Future: Open detail view for editing
-            console.log('Open item:', id);
-            alert('Edit mode coming soon. For now, edit data/queue.json directly.');
+            currentEditId = id;
+            const item = queueData.items.find(i => i.id === id);
+            if (!item) return;
+            
+            // Populate form
+            document.getElementById('edit-id').value = id;
+            document.getElementById('edit-name').value = item.album.name;
+            document.getElementById('edit-year').value = item.suggested.year || '';
+            document.getElementById('edit-people').value = '';
+            document.getElementById('edit-event').value = '';
+            document.getElementById('edit-trip').value = '';
+            document.getElementById('edit-print').value = '';
+            document.getElementById('edit-priority').value = item.priority || 'medium';
+            document.getElementById('edit-notes').value = item.notes || '';
+            
+            // Show modal
+            document.getElementById('edit-modal').classList.add('active');
         }
+        
+        function closeModal() {
+            document.getElementById('edit-modal').classList.remove('active');
+            currentEditId = null;
+        }
+        
+        function saveEdit() {
+            if (!currentEditId) return;
+            
+            const formData = {
+                id: currentEditId,
+                year: document.getElementById('edit-year').value,
+                month: document.getElementById('edit-month').value,
+                people: document.getElementById('edit-people').value,
+                event: document.getElementById('edit-event').value,
+                trip: document.getElementById('edit-trip').value,
+                print: document.getElementById('edit-print').value,
+                priority: document.getElementById('edit-priority').value,
+                notes: document.getElementById('edit-notes').value
+            };
+            
+            // For now, log to console (future: save to JSON)
+            console.log('Saving:', formData);
+            
+            // Create downloadable JSON
+            const dataStr = JSON.stringify(formData, null, 2);
+            const blob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `edit-${currentEditId}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            alert('Changes saved! Download the JSON file and commit it to update the data.');
+            closeModal();
+        }
+        
+        // Close modal on overlay click
+        document.getElementById('edit-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
         
         // Initialize
         loadData();
