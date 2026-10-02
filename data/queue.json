@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-02T21:00:00Z",
+  "generated_at": "2026-10-02T23:01:38Z",
   "agent": "ansel",
   "items": [
     {
@@ -76,11 +76,68 @@
         "Travel-Lbi-2020-i-HC95rfK-A"
       ],
       "notes": "Consolidate or mark as sub-pages of main LBI 2020 album."
+    },
+    {
+      "id": "album-005",
+      "type": "album-classification",
+      "status": "pending",
+      "priority": "medium",
+      "album": {
+        "name": "Andrew McMahon 3 Pianos - 8/8/26",
+        "slug": "Events-Andrew-mcmahon-3-pianos-8826",
+        "url": "https://www.bradyvisuals.com/Events/Andrew-mcmahon-3-pianos-8826",
+        "photo_count": 44,
+        "date_modified": "2026-08-28T18:18:45Z"
+      },
+      "missing": ["location", "people", "event-link", "print-potential", "priority"],
+      "suggested": {
+        "year": 2026,
+        "category": "event"
+      },
+      "notes": "New album detected since the July 2 baseline."
+    },
+    {
+      "id": "album-006",
+      "type": "album-classification",
+      "status": "pending",
+      "priority": "medium",
+      "album": {
+        "name": "New York City - July 26",
+        "slug": "Travel-2026-New-york-city-july-26",
+        "url": "https://www.bradyvisuals.com/Travel/2026/New-york-city-july-26",
+        "photo_count": 117,
+        "date_modified": "2026-07-31T13:39:40Z"
+      },
+      "missing": ["people", "trip-link", "print-potential", "priority"],
+      "suggested": {
+        "year": 2026,
+        "category": "travel"
+      },
+      "notes": "New album detected since the July 2 baseline."
+    },
+    {
+      "id": "album-007",
+      "type": "album-classification",
+      "status": "pending",
+      "priority": "medium",
+      "album": {
+        "name": "Azores 15 Year - Aug 2026",
+        "slug": "Travel-2026-Azores-15-year-aug-2026",
+        "url": "https://www.bradyvisuals.com/Travel/2026/Azores-15-year-aug-2026",
+        "photo_count": 468,
+        "date_modified": "2026-08-31T23:42:43Z"
+      },
+      "missing": ["people", "trip-link", "print-potential", "priority"],
+      "suggested": {
+        "year": 2026,
+        "category": "travel"
+      },
+      "notes": "New album detected since the July 2 baseline."
     }
   ],
   "stats": {
-    "total": 4,
-    "pending": 4,
+    "total": 7,
+    "pending": 7,
     "in_progress": 0,
     "completed": 0
   }

@@ -1,6 +1,48 @@
 {
-  "generated_at": "2026-07-02T21:00:00Z",
+  "generated_at": "2026-10-02T23:01:38Z",
   "recent_additions": [
+    {
+      "detected_at": "2026-10-02T23:01:38Z",
+      "album": {
+        "name": "Azores 15 Year - Aug 2026",
+        "slug": "Travel-2026-Azores-15-year-aug-2026",
+        "url": "https://www.bradyvisuals.com/Travel/2026/Azores-15-year-aug-2026",
+        "photo_count": 468
+      },
+      "extracted_title": "azores 15 year - aug 2026",
+      "category_guess": "travel",
+      "year_guess": 2026,
+      "confidence": "high",
+      "notes": "New since the July 2 baseline."
+    },
+    {
+      "detected_at": "2026-10-02T23:01:35Z",
+      "album": {
+        "name": "New York City - July 26",
+        "slug": "Travel-2026-New-york-city-july-26",
+        "url": "https://www.bradyvisuals.com/Travel/2026/New-york-city-july-26",
+        "photo_count": 117
+      },
+      "extracted_title": "new york city - july 26",
+      "category_guess": "travel",
+      "year_guess": 2026,
+      "confidence": "high",
+      "notes": "New since the July 2 baseline."
+    },
+    {
+      "detected_at": "2026-10-02T23:01:22Z",
+      "album": {
+        "name": "Andrew McMahon 3 Pianos - 8/8/26",
+        "slug": "Events-Andrew-mcmahon-3-pianos-8826",
+        "url": "https://www.bradyvisuals.com/Events/Andrew-mcmahon-3-pianos-8826",
+        "photo_count": 44
+      },
+      "extracted_title": "andrew mcmahon 3 pianos - 8/8/26",
+      "category_guess": "event",
+      "year_guess": 2026,
+      "confidence": "high",
+      "notes": "New since the July 2 baseline."
+    },
     {
       "detected_at": "2026-07-02T17:36:00Z",
       "album": {
